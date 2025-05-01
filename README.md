@@ -1,94 +1,122 @@
-# 10x Astro Starter
+# VibeTravels
 
-A modern, opinionated starter template for building fast, accessible, and AI-friendly web applications.
+[![Project Status: MVP Development](https://img.shields.io/badge/status-MVP%20Development-blue)](.) <!-- Placeholder status badge -->
+
+## Table of Contents
+
+1.  [Project Description](#project-description)
+2.  [Tech Stack](#tech-stack)
+3.  [Getting Started Locally](#getting-started-locally)
+4.  [Available Scripts](#available-scripts)
+5.  [Project Scope (MVP)](#project-scope-mvp)
+6.  [Project Status](#project-status)
+7.  [License](#license)
+
+## Project Description
+
+VibeTravels aims to simplify the initial, often challenging, phase of travel planning. Many users have scattered ideas and inspirations for future trips but struggle to consolidate them into concrete plans. This application allows users to capture these initial thoughts as simple text notes.
+
+The core feature leverages AI (via Openrouter.ai) to analyze these user-created notes and generate new, descriptive travel suggestions or outlines, turning fragmented ideas into actionable starting points for planning.
+
+This repository contains the Minimum Viable Product (MVP) version of VibeTravels, focusing on validating the core note-taking and AI suggestion generation functionalities.
 
 ## Tech Stack
 
-- [Astro](https://astro.build/) v5.5.5 - Modern web framework for building fast, content-focused websites
-- [React](https://react.dev/) v19.0.0 - UI library for building interactive components
-- [TypeScript](https://www.typescriptlang.org/) v5 - Type-safe JavaScript
-- [Tailwind CSS](https://tailwindcss.com/) v4.0.17 - Utility-first CSS framework
+-   **Frontend:**
+    -   [Astro 5](https://astro.build/): For building fast, content-focused websites with less client-side JavaScript.
+    -   [React 19](https://react.dev/): For interactive UI components.
+    -   [TypeScript 5](https://www.typescriptlang.org/): For static typing and improved developer experience.
+    -   [Tailwind CSS 4](https://tailwindcss.com/): Utility-first CSS framework for styling.
+    -   [Shadcn/ui](https://ui.shadcn.com/): Re-usable UI components built with Radix UI and Tailwind CSS.
+-   **Backend & Database:**
+    -   [Supabase](https://supabase.com/): Open-source Firebase alternative providing PostgreSQL database, authentication, and BaaS SDKs.
+-   **AI Integration:**
+    -   [Openrouter.ai](https://openrouter.ai/): Access to a wide variety of LLMs (OpenAI, Anthropic, Google, etc.) for generating travel suggestions.
+-   **CI/CD:**
+    -   [GitHub Actions](https://github.com/features/actions): For setting up automated build and deployment pipelines.
 
-## Prerequisites
+## Getting Started Locally
 
-- Node.js v22.14.0 (as specified in `.nvmrc`)
-- npm (comes with Node.js)
+Follow these steps to set up and run the project on your local machine:
 
-## Getting Started
+1.  **Prerequisites:**
+    -   Node.js: Version specified in the `.nvmrc` file. We recommend using [nvm](https://github.com/nvm-sh/nvm) (Node Version Manager).
+        ```bash
+        nvm install
+        nvm use
+        ```
+    -   npm (usually comes with Node.js)
 
-1. Clone the repository:
+2.  **Clone the Repository:**
+    ```bash
+    git clone <repository-url>
+    cd 10xDevs-travel
+    ```
 
-```bash
-git clone https://github.com/przeprogramowani/10x-astro-starter.git
-cd 10x-astro-starter
-```
+3.  **Install Dependencies:**
+    ```bash
+    npm install
+    ```
 
-2. Install dependencies:
+4.  **Environment Variables:**
+    -   Create a `.env` file in the project root.
+    -   Add the necessary environment variables for Supabase and Openrouter.ai. You'll need:
+        -   `PUBLIC_SUPABASE_URL`: Your Supabase project URL.
+        -   `PUBLIC_SUPABASE_ANON_KEY`: Your Supabase project anonymous key.
+        -   `OPENROUTER_API_KEY`: Your API key from Openrouter.ai.
+    ```env
+    # .env example
+    PUBLIC_SUPABASE_URL=YOUR_SUPABASE_URL
+    PUBLIC_SUPABASE_ANON_KEY=YOUR_SUPABASE_ANON_KEY
+    OPENROUTER_API_KEY=YOUR_OPENROUTER_API_KEY
+    ```
+    *Note: Refer to Supabase and Openrouter documentation for obtaining these keys.*
 
-```bash
-npm install
-```
-
-3. Run the development server:
-
-```bash
-npm run dev
-```
-
-4. Build for production:
-
-```bash
-npm run build
-```
+5.  **Run the Development Server:**
+    ```bash
+    npm run dev
+    ```
+    The application should now be running locally, typically at `http://localhost:4321`.
 
 ## Available Scripts
 
-- `npm run dev` - Start development server
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint
-- `npm run lint:fix` - Fix ESLint issues
+The following scripts are available via npm:
 
-## Project Structure
+-   `npm run dev`: Starts the Astro development server with HMR (Hot Module Replacement).
+-   `npm run start`: Starts the Astro development server (similar to `dev`).
+-   `npm run build`: Builds the application for production.
+-   `npm run preview`: Starts a local server to preview the production build.
+-   `npm run astro ...`: Allows running Astro CLI commands directly.
+-   `npm run check`: Runs Astro's diagnostic checks (e.g., type checking).
 
-```md
-.
-├── src/
-│   ├── layouts/    # Astro layouts
-│   ├── pages/      # Astro pages
-│   │   └── api/    # API endpoints
-│   ├── components/ # UI components (Astro & React)
-│   └── assets/     # Static assets
-├── public/         # Public assets
-```
+## Project Scope (MVP)
 
-## AI Development Support
+The current MVP includes the following core functionalities:
 
-This project is configured with AI development tools to enhance the development experience, providing guidelines for:
+-   **User Authentication:** Simple user registration and login.
+-   **Note Management:** Users can Create, Read, Update (Edit), and Delete their own text-based travel notes.
+-   **AI Suggestion Generation:**
+    -   Users can trigger an AI process.
+    -   The AI analyzes *all* of the user's current notes.
+    -   A new, descriptive travel suggestion is generated as a text note.
+    -   The AI-generated note is automatically saved to the user's note list.
 
-- Project structure
-- Coding practices
-- Frontend development
-- Styling with Tailwind
-- Accessibility best practices
-- Astro and React guidelines
+**Out of Scope for MVP:**
 
-### Cursor IDE
+-   Sharing notes/plans between users.
+-   Multimedia support in notes (text only).
+-   Advanced planning features (logistics, budgeting, scheduling).
+-   Editing of AI-generated notes.
+-   Data export.
+-   User profiles or storing user preferences to influence AI.
+-   Usage analytics or success metric tracking.
+-   Data backup mechanisms.
+-   Public API.
 
-The project includes AI rules in `.cursor/rules/` directory that help Cursor IDE understand the project structure and provide better code suggestions.
+## Project Status
 
-### GitHub Copilot
-
-AI instructions for GitHub Copilot are available in `.github/copilot-instructions.md`
-
-### Windsurf
-
-The `.windsurfrules` file contains AI configuration for Windsurf.
-
-## Contributing
-
-Please follow the AI guidelines and coding practices defined in the AI configuration files when contributing to this project.
+This project is currently in the **Minimum Viable Product (MVP) development phase**. Core features are being built and refined.
 
 ## License
 
-MIT
+This project is currently unlicensed. Consider adding a license file (e.g., `LICENSE.md` with the MIT License) to clarify usage rights.
