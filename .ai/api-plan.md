@@ -4,6 +4,7 @@
 - **notes**: `public.notes` table (id, user_id, content, is_ai_generated, created_at, updated_at).
 - **profiles**: `public.profiles` table (id, created_at, updated_at).
 - **ai_suggestions**: logical resource for AI suggestion generation.
+- **auth**: logical resource for authentication.
 
 ## 2. Endpoints
 
@@ -142,10 +143,71 @@
   - 401 Unauthorized
   - 502 Bad Gateway 
 
+### Authentication Resource
+
+#### POST /api/auth/login
+- Description: Authenticate a user with email and password.
+- Request Body:
+  ```json
+  { "email": "string", "password": "string" }
+  ```
+- Response 200:
+  ```json
+  { "access_token": "string", "token_type": "bearer", ... }
+  ```
+- Errors:
+  - 400 Bad Request (validation failed, invalid JSON)
+  - 401 Unauthorized (invalid credentials)
+  - 500 Internal Server Error
+
+#### POST /api/auth/register
+- Description: Register a new user with email and password.
+- Request Body:
+  ```json
+  { "email": "string", "password": "string" }
+  ```
+- Response 200:
+  ```json
+  { "user": { "id": "uuid", ... }, "session": { ... } }
+  ```
+- Errors:
+  - 400 Bad Request (validation failed, invalid JSON, user already exists)
+  - 500 Internal Server Error
+
+#### POST /api/auth/logout
+- Description: Log out the currently authenticated user.
+- Request Body: None
+- Response 200:
+  ```json
+  { "message": "Successfully logged out" }
+  ```
+- Errors:
+  - 401 Unauthorized
+  - 500 Internal Server Error
+
+#### GET /api/auth/token
+- Description: Retrieve the session token for the currently authenticated user.
+- Response 200:
+  ```json
+  { "access_token": "string", "token_type": "bearer", ... }
+  ```
+- Errors:
+  - 401 Unauthorized
+
+#### GET /api/auth/test-connection
+- Description: Test the connection to the Supabase database (does not require authentication).
+- Response 200:
+  ```json
+  { "message": "Connection to Supabase successful", "data": ..., "status": "success" }
+  ```
+- Errors:
+  - 500 Internal Server Error (connection failed)
+
 ## 3. Authentication & Authorization
-- Mechanism: Supabase JWT via HTTP header `Authorization: Bearer <token>`.
+- Mechanism: Supabase JWT via HTTP header `Authorization: Bearer <token>` for most endpoints.
 - Middleware: Astro middleware attaches `context.locals.supabase` to handle auth.
 - RLS on database ensures user can only access their own data.
+- Note: `/api/auth/login`, `/api/auth/register`, and `/api/auth/test-connection` do not require prior authentication.
 
 ## 4. Validation & Business Logic
 - **Content length**: max 5000 chars (`CHECK length(content) <= 5000`).
