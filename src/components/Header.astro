@@ -1,0 +1,44 @@
+---
+// Header.astro - Główny nagłówek aplikacji dla zalogowanych użytkowników
+---
+
+<header class="bg-white shadow dark:bg-gray-800">
+  <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+    <div>
+      <h1 class="text-2xl font-bold text-gray-900 dark:text-white">VibeTravels</h1>
+      <p class="text-sm text-gray-600 dark:text-gray-300">Odkryj swoje idealne destynacje</p>
+    </div>
+
+    <nav>
+      <ul class="flex space-x-4">
+        <li>
+          <a
+            href="/"
+            class="text-gray-800 dark:text-white font-medium hover:text-primary transition-colors"
+            aria-current="page"
+          >
+            Moje podróże
+          </a>
+        </li>
+        <li>
+          <a
+            href="/saved"
+            class="text-gray-800 dark:text-white font-medium hover:text-primary transition-colors"
+          >
+            Zapisane propozycje
+          </a>
+        </li>
+        <li>
+          <form action="/api/auth/logout" method="post">
+            <button
+              type="submit"
+              class="text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400 transition-colors"
+            >
+              Wyloguj się
+            </button>
+          </form>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

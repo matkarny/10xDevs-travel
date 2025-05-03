@@ -1,0 +1,22 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+import SavedSuggestionsList from "../components/saved/SavedSuggestionsList.js";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+const pageTitle = "Zapisane propozycje";
+const initialPage = 1;
+const initialLimit = 20;
+---
+
+<Layout title={pageTitle}>
+  <Header />
+  <main class="container mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto">
+      <SavedSuggestionsList client:load initialPage={initialPage} initialLimit={initialLimit} />
+    </div>
+
+    <ToastContainer client:load className="mt-16" />
+  </main>
+</Layout>

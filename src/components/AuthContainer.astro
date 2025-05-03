@@ -1,0 +1,17 @@
+---
+import AuthHeader from "./AuthHeader.astro";
+import AuthForms from "./AuthForms";
+
+interface Props {
+  mode: "login" | "register";
+}
+
+const { mode } = Astro.props;
+---
+
+<div class="w-full max-w-md rounded-lg bg-white p-6 shadow-lg">
+  <AuthHeader title={mode === "login" ? "Logowanie" : "Rejestracja"} />
+  <div class="mt-6">
+    <AuthForms mode={mode} client:load />
+  </div>
+</div>

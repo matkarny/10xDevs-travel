@@ -1,0 +1,42 @@
+---
+// NoteSection.astro - Sekcja zawierająca notatki użytkownika
+import NotesGridWrapper from "./NotesGridWrapper.tsx";
+---
+
+<section class="mb-10">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-2xl font-semibold">Moje notatki</h2>
+    <button
+      id="create-note-btn"
+      class="bg-primary hover:bg-primary/90 text-white px-4 py-2 rounded-md flex items-center"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+        <path
+          fill-rule="evenodd"
+          d="M10 3a1 1 0 00-1 1v5H4a1 1 0 100 2h5v5a1 1 0 102 0v-5h5a1 1 0 100-2h-5V4a1 1 0 00-1-1z"
+          clip-rule="evenodd"></path>
+      </svg>
+      Nowa notatka
+    </button>
+  </div>
+
+  <NotesGridWrapper client:load />
+
+  <div class="mt-6" id="pagination-container">
+    <!-- Tutaj będzie renderowany komponent paginacji -->
+  </div>
+</section>
+
+<script>
+  // Logika otwierania modalu tworzenia notatki
+  document.addEventListener("DOMContentLoaded", () => {
+    const createNoteBtn = document.getElementById("create-note-btn");
+    if (createNoteBtn) {
+      createNoteBtn.addEventListener("click", () => {
+        // Emitujemy zdarzenie, które zostanie obsłużone przez komponenty React
+        const event = new CustomEvent("open-create-note-modal");
+        document.dispatchEvent(event);
+      });
+    }
+  });
+</script>

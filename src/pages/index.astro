@@ -1,8 +1,27 @@
 ---
-import Welcome from "../components/Welcome.astro";
 import Layout from "../layouts/Layout.astro";
+import Header from "../components/Header.astro";
+
+import AISuggestionSection from "../components/suggestions/AISuggestionSection";
+import { ToastContainer } from "react-toastify";
+import AppModals from "../components/modals/AppModals";
+import "react-toastify/dist/ReactToastify.css";
+import NoteSection from "@/components/notes/NoteSection.astro";
+
+// Set page title and description
+const pageTitle = "Moje podróże";
 ---
 
-<Layout>
-  <Welcome />
+<Layout title={pageTitle}>
+  <Header />
+  <main class="container mx-auto px-4 py-8">
+    <NoteSection />
+    <AISuggestionSection client:load />
+
+    <!-- Modals for notes management and AI suggestions -->
+    <AppModals client:load />
+
+    <!-- Toast notifications container -->
+    <ToastContainer client:load className="mt-16" />
+  </main>
 </Layout>

@@ -1,0 +1,16 @@
+---
+import Layout from "../layouts/Layout.astro";
+import AuthContainer from "../components/AuthContainer.astro";
+import { ToastContainer } from "../components/ui/Toast";
+
+// Get the mode from the URL parameters (default to 'login')
+const mode = Astro.url.searchParams.get('mode') === 'register' ? 'register' : 'login';
+const title = mode === 'login' ? 'Logowanie | 10xDevs Travel' : 'Rejestracja | 10xDevs Travel';
+---
+
+<Layout title={title}>
+  <main class="flex min-h-screen items-center justify-center bg-gray-50 p-4">
+    <AuthContainer mode={mode} />
+    <ToastContainer client:load />
+  </main>
+</Layout>
